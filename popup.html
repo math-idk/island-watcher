@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fortnite.GG Island Watcher</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand-block">
+        <p class="eyebrow">FORTNITE.GG</p>
+        <h1>Island Watcher</h1>
+      </div>
+
+      <div class="top-actions" aria-label="Extension actions">
+        <button
+          id="addMenuButton"
+          class="icon-button"
+          type="button"
+          title="Add favorite island"
+          aria-label="Add favorite island"
+          aria-controls="addPanel"
+          aria-expanded="false"
+        >+</button>
+        <button
+          id="settingsButton"
+          class="icon-button settings-button"
+          type="button"
+          title="Settings"
+          aria-label="Settings"
+          aria-controls="settingsPanel"
+          aria-expanded="false"
+        >⚙</button>
+        <button
+          id="refreshButton"
+          class="icon-button refresh-button"
+          type="button"
+          title="Refresh now"
+          aria-label="Refresh now"
+        >↻</button>
+      </div>
+    </header>
+
+    <div class="countdown-bar" aria-live="polite">
+      <span class="countdown-dot" aria-hidden="true"></span>
+      <span id="countdownText">Next update in --:--</span>
+    </div>
+
+    <section id="addPanel" class="collapsible-panel add-panel" hidden>
+      <form id="addForm" class="add-form">
+        <div class="panel-heading">
+          <div>
+            <h2>Add favorite island</h2>
+            <p>Paste an island code or a Fortnite.GG / Fortnite.com link.</p>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <input
+            id="islandCode"
+            name="islandCode"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="8257-3753-1968 or island URL"
+            aria-describedby="addStatus"
+          >
+          <button id="addButton" class="primary-button" type="submit">Add</button>
+        </div>
+        <p id="addStatus" class="form-status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section id="settingsPanel" class="collapsible-panel settings-panel" aria-label="Settings" hidden>
+      <div class="panel-heading">
+        <div>
+          <h2>Settings</h2>
+          <p>Control notifications and automatic refresh timing.</p>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-group-title">Notifications</div>
+
+        <label class="switch-row">
+          <span>
+            <strong>New 24-hour peak</strong>
+            <small>Alert me when the highest value in the last 24 hours increases.</small>
+          </span>
+          <input id="notify24h" type="checkbox">
+          <span class="switch" aria-hidden="true"></span>
+        </label>
+
+        <label class="switch-row">
+          <span>
+            <strong>New all-time record</strong>
+            <small>Alert me when the all-time player peak increases.</small>
+          </span>
+          <input id="notifyAllTime" type="checkbox">
+          <span class="switch" aria-hidden="true"></span>
+        </label>
+
+        <button id="testNotificationButton" class="secondary-button" type="button">
+          Test notification
+        </button>
+        <small class="notification-test-note">
+          The popup closes and the test is sent from the background.
+        </small>
+
+        <button id="notificationHelpButton" class="help-button" type="button">
+          <span aria-hidden="true">?</span>
+          Need Help?
+        </button>
+      </div>
+
+      <div class="settings-group refresh-settings">
+        <div class="setting-copy">
+          <strong>Refresh interval</strong>
+          <small>Choose how often favorite islands are checked.</small>
+        </div>
+
+        <div class="interval-options" role="radiogroup" aria-label="Refresh interval">
+          <button class="interval-button" type="button" data-minutes="1" role="radio">1 min</button>
+          <button class="interval-button" type="button" data-minutes="2" role="radio">2 min</button>
+          <button class="interval-button" type="button" data-minutes="5" role="radio">5 min</button>
+          <button class="interval-button" type="button" data-minutes="10" role="radio">10 min</button>
+        </div>
+      </div>
+
+      <p id="settingsStatus" class="form-status settings-status" aria-live="polite"></p>
+    </section>
+
+    <section class="favorites-section">
+      <div class="section-heading">
+        <h2>Favorites</h2>
+        <span id="lastUpdated"></span>
+      </div>
+      <div id="favoritesList" class="favorites-list"></div>
+    </section>
+
+    <footer>
+      Public data retrieved from Fortnite.GG and saved locally.
+    </footer>
+  </main>
+
+  <template id="favoriteTemplate">
+    <article class="favorite-card" tabindex="0" role="link">
+      <div class="card-header">
+        <img class="thumbnail" alt="">
+        <button
+          class="drag-handle"
+          type="button"
+          title="Drag to reorder"
+          aria-label="Drag to reorder"
+          draggable="true"
+        >
+          <span aria-hidden="true">⠿</span>
+        </button>
+        <div class="map-identity">
+          <h3 class="map-name"></h3>
+          <p class="map-code"></p>
+        </div>
+        <button class="remove-button" type="button" title="Remove from favorites" aria-label="Remove from favorites">×</button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat current-stat">
+          <span class="stat-value current-value">—</span>
+          <span class="stat-label">Players right now</span>
+        </div>
+        <div class="stat peak24-stat">
+          <span class="stat-value peak24-value">—</span>
+          <span class="stat-label">24 hour peak</span>
+        </div>
+        <div class="stat alltime-stat">
+          <span class="stat-value alltime-value">—</span>
+          <span class="stat-label">All time peak</span>
+          <span class="stat-age alltime-age" hidden></span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <span class="card-status"></span>
+        <span class="open-hint">Open ↗</span>
+      </div>
+    </article>
+  </template>
+
+  <script src="popup.js"></script>
+</body>
+</html>

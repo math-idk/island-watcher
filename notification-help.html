@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notification Help — Island Watcher</title>
+  <link rel="stylesheet" href="notification-help.css">
+</head>
+<body>
+  <main class="help-app">
+    <header class="help-header">
+      <div>
+        <p class="eyebrow">ISLAND WATCHER SUPPORT</p>
+        <h1>Notification Help</h1>
+        <p class="subtitle">Follow the checklist for Chrome and your operating system. Extension permission alone does not guarantee that the operating system will show a banner.</p>
+      </div>
+      <div class="header-badges">
+        <span id="platformBadge" class="badge">Detecting system…</span>
+        <span id="permissionBadge" class="badge neutral">Checking permission…</span>
+      </div>
+    </header>
+
+    <section class="quick-tools" aria-label="Quick tools">
+      <button id="sendTestButton" class="primary-button" type="button">Send test notification</button>
+      <button id="openChromeNotificationsButton" class="secondary-button" type="button">Open Chrome notification settings</button>
+      <button id="openExtensionsButton" class="secondary-button" type="button">Open extension manager</button>
+      <button id="copyDiagnosticsButton" class="secondary-button" type="button">Copy diagnostics</button>
+    </section>
+
+    <p id="toolStatus" class="tool-status" aria-live="polite"></p>
+
+    <section class="status-grid">
+      <article class="status-card">
+        <span class="status-label">Extension permission</span>
+        <strong id="permissionValue">Checking…</strong>
+        <small>“Granted” means Chrome accepted the extension permission. Windows, macOS, or Linux can still hide the banner.</small>
+      </article>
+      <article class="status-card">
+        <span class="status-label">Detected platform</span>
+        <strong id="platformValue">Checking…</strong>
+        <small>The matching operating-system guide is selected automatically.</small>
+      </article>
+      <article class="status-card">
+        <span class="status-label">Active notifications</span>
+        <strong id="activeValue">Checking…</strong>
+        <small>This is the number of Island Watcher notifications currently registered by Chrome.</small>
+      </article>
+    </section>
+
+    <nav class="tab-list" aria-label="Help categories">
+      <button class="tab-button active" type="button" data-tab="recommended">Recommended</button>
+      <button class="tab-button" type="button" data-tab="chrome">Chrome</button>
+      <button class="tab-button" type="button" data-tab="windows">Windows</button>
+      <button class="tab-button" type="button" data-tab="macos">macOS</button>
+      <button class="tab-button" type="button" data-tab="linux">Linux</button>
+      <button class="tab-button" type="button" data-tab="advanced">Advanced</button>
+    </nav>
+
+    <section id="recommended" class="tab-panel active">
+      <div class="section-intro">
+        <h2>Recommended check</h2>
+        <p>Complete these steps in order. Most missing banners are caused by the operating system's per-app settings, not by the extension.</p>
+      </div>
+
+      <ol class="step-list emphasized">
+        <li><strong>Send a test.</strong> Use the button above and wait at least five seconds.</li>
+        <li><strong>Open the notification center.</strong> The alert may be stored there even when no pop-up banner appeared.</li>
+        <li><strong>Allow Google Chrome in the operating system.</strong> Enable banners, notification center/history, and sounds.</li>
+        <li><strong>Turn off Do Not Disturb or Focus.</strong> Also inspect automatic schedules and gaming/full-screen rules.</li>
+        <li><strong>Keep Chrome running.</strong> Island Watcher cannot check maps or notify while every Chrome process is closed.</li>
+        <li><strong>Retest.</strong> After changing settings, fully restart Chrome and send another test.</li>
+      </ol>
+
+      <div class="notice important">
+        <strong>Important</strong>
+        <span>Do not uninstall the extension while troubleshooting. Uninstalling can remove locally saved favorites. Use <b>Reload</b> on the extensions page instead.</span>
+      </div>
+    </section>
+
+    <section id="chrome" class="tab-panel">
+      <div class="section-intro">
+        <h2>Google Chrome checks</h2>
+        <p>These checks apply on Windows, macOS, and Linux.</p>
+      </div>
+
+      <details open>
+        <summary>1. Confirm that Island Watcher is enabled</summary>
+        <ol class="step-list">
+          <li>Open <code>chrome://extensions/</code>.</li>
+          <li>Find <b>Fortnite.GG Island Watcher</b>.</li>
+          <li>Confirm that its toggle is enabled.</li>
+          <li>Click <b>Reload</b> after installing an updated folder.</li>
+          <li>If an <b>Errors</b> button appears, open it and review the latest error.</li>
+        </ol>
+        <button class="inline-action" type="button" data-internal-url="chrome://extensions/">Open extension manager</button>
+      </details>
+
+      <details>
+        <summary>2. Check Chrome's notification settings</summary>
+        <ol class="step-list">
+          <li>Open Chrome Settings.</li>
+          <li>Go to <b>Privacy and security → Site settings → Notifications</b>.</li>
+          <li>Make sure Chrome is not configured to block all notification requests.</li>
+          <li>This page primarily controls websites. Extension alerts use the manifest's <code>notifications</code> permission, but this check helps confirm that Chrome notifications are not broadly restricted.</li>
+        </ol>
+        <button class="inline-action" type="button" data-internal-url="chrome://settings/content/notifications">Open Chrome notification settings</button>
+      </details>
+
+      <details>
+        <summary>3. Allow Chrome to continue in the background</summary>
+        <ol class="step-list">
+          <li>Open <code>chrome://settings/system</code>.</li>
+          <li>If your Chrome version shows <b>Continue running background apps when Google Chrome is closed</b>, enable it.</li>
+          <li>Even with this option enabled, restarting or shutting down the computer pauses Island Watcher until Chrome runs again.</li>
+        </ol>
+        <button class="inline-action" type="button" data-internal-url="chrome://settings/system">Open Chrome system settings</button>
+      </details>
+
+      <details>
+        <summary>4. Check for managed-browser restrictions</summary>
+        <ol class="step-list">
+          <li>Open <code>chrome://policy</code>.</li>
+          <li>Look for notification, extension, or background-app policies.</li>
+          <li>If Chrome says <b>Managed by your organization</b>, a school or workplace administrator may control notifications.</li>
+        </ol>
+        <button class="inline-action" type="button" data-internal-url="chrome://policy">Open Chrome policies</button>
+      </details>
+
+      <a class="official-link" href="#" data-external-url="https://support.google.com/chrome/answer/3220216?co=GENIE.Platform%3DDesktop&amp;hl=en">Open official Google Chrome notification help ↗</a>
+    </section>
+
+    <section id="windows" class="tab-panel">
+      <div class="section-intro">
+        <h2>Windows notification checks</h2>
+        <p>Google Chrome must be allowed as an app sender. The main notifications switch can be on while Chrome's banners remain off.</p>
+      </div>
+
+      <details open>
+        <summary>Windows 11 — complete checklist</summary>
+        <ol class="step-list">
+          <li>Press <kbd>Win</kbd> + <kbd>I</kbd> to open <b>Settings</b>.</li>
+          <li>Go to <b>System → Notifications</b>.</li>
+          <li>Turn the main <b>Notifications</b> switch on.</li>
+          <li>Under <b>Notifications from apps and other senders</b>, find <b>Google Chrome</b> and turn it on.</li>
+          <li>Click <b>Google Chrome</b>, then enable <b>Show notification banners</b>, <b>Show notifications in notification center</b>, and <b>Play a sound when a notification arrives</b>.</li>
+          <li>Return to the Notifications page and turn <b>Do not disturb</b> off.</li>
+          <li>Expand <b>Turn on do not disturb automatically</b> and check scheduled, full-screen, gaming, and display-duplication rules.</li>
+          <li>Press <kbd>Win</kbd> + <kbd>N</kbd> to inspect Notification Center.</li>
+        </ol>
+        <div class="command-row">
+          <code>ms-settings:notifications</code>
+          <button class="copy-button" type="button" data-copy="ms-settings:notifications">Copy Settings command</button>
+        </div>
+        <small class="command-help">Press Win + R, paste the command, and press Enter.</small>
+      </details>
+
+      <details>
+        <summary>Windows 10 — complete checklist</summary>
+        <ol class="step-list">
+          <li>Open <b>Start → Settings → System → Notifications &amp; actions</b>.</li>
+          <li>Enable <b>Get notifications from apps and other senders</b>.</li>
+          <li>Under sender settings, enable <b>Google Chrome</b>.</li>
+          <li>Click Google Chrome and enable banners, Action Center, and sounds.</li>
+          <li>Open <b>Action Center</b> and set <b>Focus assist</b> to Off.</li>
+          <li>Check Focus assist automatic rules, especially gaming and full-screen rules.</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary>Sound and background checks</summary>
+        <ol class="step-list">
+          <li>Open <b>Settings → System → Sound → Volume mixer</b>.</li>
+          <li>Confirm that Google Chrome is not muted and its app volume is above zero.</li>
+          <li>Check the taskbar system tray to confirm Chrome still has a running process when all browser windows are closed.</li>
+          <li>After changing Windows notification settings, fully exit Chrome, reopen it, and run the test again.</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary>If Google Chrome is missing from the sender list</summary>
+        <ol class="step-list">
+          <li>Keep the Windows Notifications page open.</li>
+          <li>Return to Island Watcher and send a test notification.</li>
+          <li>Reopen or refresh the Windows Notifications page.</li>
+          <li>Restart Chrome, then restart Windows if Chrome still does not appear.</li>
+        </ol>
+      </details>
+
+      <a class="official-link" href="#" data-external-url="https://support.microsoft.com/en-us/windows/notifications-and-do-not-disturb-in-windows-feeca47f-0baf-5680-16f0-8801db1a8466">Open official Microsoft notification help ↗</a>
+    </section>
+
+    <section id="macos" class="tab-panel">
+      <div class="section-intro">
+        <h2>macOS notification checks</h2>
+        <p>Chrome must be allowed in macOS Application Notifications, and Focus must allow the alert.</p>
+      </div>
+
+      <details open>
+        <summary>macOS Ventura and newer</summary>
+        <ol class="step-list">
+          <li>Choose <b>Apple menu → System Settings</b>.</li>
+          <li>Click <b>Notifications</b> in the sidebar.</li>
+          <li>Under <b>Application Notifications</b>, select <b>Google Chrome</b>.</li>
+          <li>Turn <b>Allow notifications</b> on.</li>
+          <li>Select <b>Banners</b> or <b>Alerts</b> as the notification style.</li>
+          <li>Enable <b>Show in Notification Center</b> and <b>Play sound for notification</b>.</li>
+          <li>Choose <b>Apple menu → System Settings → Focus</b>. Turn Focus off or allow Google Chrome in the active Focus.</li>
+          <li>Click the date and time in the menu bar to inspect Notification Center.</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary>Older macOS versions</summary>
+        <ol class="step-list">
+          <li>Open <b>Apple menu → System Preferences → Notifications &amp; Focus</b>.</li>
+          <li>Select <b>Google Chrome</b>.</li>
+          <li>Enable notifications, choose Banners or Alerts, and enable sounds.</li>
+          <li>Open the Focus tab and disable Do Not Disturb or permit Chrome.</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary>Additional macOS checks</summary>
+        <ol class="step-list">
+          <li>Make sure Chrome is running. Island Watcher cannot execute after Chrome has fully quit.</li>
+          <li>Check whether Screen Sharing, gaming, or another Focus automatically enabled Do Not Disturb.</li>
+          <li>Restart Chrome after changing notification permission.</li>
+          <li>If Chrome does not appear in Application Notifications, send a test first and reopen System Settings.</li>
+        </ol>
+      </details>
+
+      <a class="official-link" href="#" data-external-url="https://support.apple.com/guide/mac-help/change-notifications-settings-on-mac-mchl205da693/mac">Open official Apple notification help ↗</a>
+    </section>
+
+    <section id="linux" class="tab-panel">
+      <div class="section-intro">
+        <h2>Linux notification checks</h2>
+        <p>Menus vary by desktop environment. Start with the guide matching GNOME/Ubuntu or KDE Plasma.</p>
+      </div>
+
+      <details open>
+        <summary>GNOME and Ubuntu</summary>
+        <ol class="step-list">
+          <li>Open <b>Activities</b>, search for <b>Settings</b>, and open it.</li>
+          <li>Select <b>Notifications</b> in the sidebar.</li>
+          <li>Turn notifications on globally.</li>
+          <li>Find <b>Google Chrome</b> or <b>Chromium</b> and enable its notifications.</li>
+          <li>Turn Do Not Disturb off from the system menu or notification panel.</li>
+          <li>Click the clock/date area—or press <kbd>Super</kbd> + <kbd>V</kbd> on supported GNOME versions—to inspect notification history.</li>
+          <li>Open <b>Settings → Sound</b> and verify alert volume and alert sound.</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary>KDE Plasma</summary>
+        <ol class="step-list">
+          <li>Open <b>System Settings → Notifications</b>.</li>
+          <li>Open application-specific settings and select Google Chrome or Chromium when available.</li>
+          <li>Enable pop-up notifications, notification history, and sound.</li>
+          <li>Open the notification icon in the system tray and turn Do Not Disturb off.</li>
+          <li>Run another Island Watcher test.</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary>Test the Linux notification service</summary>
+        <ol class="step-list">
+          <li>Open a terminal.</li>
+          <li>Run the command below if <code>notify-send</code> is installed.</li>
+          <li>If this system test also fails, troubleshoot the desktop notification daemon before Chrome.</li>
+        </ol>
+        <div class="command-row">
+          <code>notify-send "Notification test" "Linux notification service is working"</code>
+          <button class="copy-button" type="button" data-copy='notify-send "Notification test" "Linux notification service is working"'>Copy command</button>
+        </div>
+      </details>
+
+      <details>
+        <summary>Sandboxed Chrome or Chromium packages</summary>
+        <ol class="step-list">
+          <li>If the browser was installed through Snap, Flatpak, or another sandbox, check its app permissions in your software center or sandbox permission manager.</li>
+          <li>Confirm that desktop integration and notification portals are allowed.</li>
+          <li>Restart the browser after changing sandbox permissions.</li>
+        </ol>
+      </details>
+
+      <div class="link-row">
+        <a class="official-link" href="#" data-external-url="https://help.ubuntu.com/stable/ubuntu-help/shell-notifications.html.en">Ubuntu notification help ↗</a>
+        <a class="official-link" href="#" data-external-url="https://docs.kde.org/trunk_kf6/en/plasma-workspace/kcontrol/notifications/index.html">KDE notification help ↗</a>
+      </div>
+    </section>
+
+    <section id="advanced" class="tab-panel">
+      <div class="section-intro">
+        <h2>Advanced troubleshooting</h2>
+        <p>Use these steps after both Chrome and operating-system settings look correct.</p>
+      </div>
+
+      <details open>
+        <summary>Check the extension service worker</summary>
+        <ol class="step-list">
+          <li>Open <code>chrome://extensions/</code>.</li>
+          <li>Enable <b>Developer mode</b>.</li>
+          <li>Find Island Watcher and click the <b>service worker</b> link.</li>
+          <li>Keep the console open, send a test notification, and look for red errors.</li>
+          <li>Use <b>Reload</b> instead of uninstalling the extension.</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary>Confirm the correct Chrome profile</summary>
+        <ol class="step-list">
+          <li>Check the profile icon in the top-right corner of Chrome.</li>
+          <li>Confirm Island Watcher is installed in the same profile currently running.</li>
+          <li>Operating-system notification settings apply to Google Chrome as an app, while extension installation is profile-specific.</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary>Restart sequence</summary>
+        <ol class="step-list">
+          <li>Save your work.</li>
+          <li>Close every Chrome window.</li>
+          <li>Use Task Manager, Activity Monitor, or your Linux system monitor to confirm Chrome has stopped.</li>
+          <li>Open Chrome again, reload the extension, and send a test.</li>
+          <li>If it still fails, restart the operating system and repeat the test.</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary>What each result means</summary>
+        <ul class="meaning-list">
+          <li><b>Permission: granted, but no banner:</b> the operating system or desktop environment is likely suppressing Chrome.</li>
+          <li><b>Notification appears only in history:</b> banners are disabled while notification-center/history delivery is enabled.</li>
+          <li><b>Banner appears without sound:</b> app sounds, alert volume, or system sound settings are disabled.</li>
+          <li><b>Tests work only while Chrome is open:</b> background Chrome processes are not remaining active.</li>
+          <li><b>Nothing works, including an OS-level test:</b> troubleshoot the operating-system notification service first.</li>
+        </ul>
+      </details>
+    </section>
+
+    <footer>
+      Island Watcher does not detect or change operating-system notification settings. This page provides checks and opens the relevant Chrome pages.
+    </footer>
+  </main>
+
+  <script src="notification-help.js"></script>
+</body>
+</html>
